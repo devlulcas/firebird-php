@@ -1,0 +1,15 @@
+{
+    "name": "philipelima/firebd-php",
+    "authors": [
+        {
+            "name": "Philipe M. Lima",
+            "email": "philipematheus.lim@gmail.com",
+            "homepage": "http://linkdin.com/in/philipe-matheus-lima"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FirebdPHP\\": "lib/"
+        }
+    }
+}
