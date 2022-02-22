@@ -5,16 +5,23 @@ namespace FirebdPHP;
 
 class Result {
 
-    public static function getResult($results)
+    public static function showInConsole($results, $title)
     {
+        $tables = "";
 
-        $tables = "\n\nAll Tables: \n \r \n \r";
+
+        echo " \n";
+        echo " | ${title}                                | \n";
+        echo " \n";
 
         foreach ($results as $key => $value) {
-            $tables .= $value['RDB$RELATION_NAME'] . "\n \r";
+        
+            $table   = rtrim($value['RDB$RELATION_NAME']); 
+
+            $tables .= " | ${table} \n";
         }
 
-        echo "" . $tables . "\n \r";
+        echo "${tables}  \n\n";
     }
 
 }
