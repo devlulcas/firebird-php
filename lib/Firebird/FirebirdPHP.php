@@ -13,11 +13,11 @@ Class FirebirdPHP
 
     private static $driver   =  "firebird";
 
-    private static $host     =  "127.0.0.1:/home/philipe/Bancos/";
-    private static $password =  "masterkey";
-    private static $user     =  "SYSDBA";
+    private static $host;
+    private static $password;
+    private static $user;
     
-    protected static $nameDb   =  "TESTE.fdb";
+    protected static $nameDb;
 
 
     protected $connection;
