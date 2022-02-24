@@ -1,5 +1,6 @@
 {
     "name": "philipelima/firebd-php",
+    "description": "A sql query builder capable of dealing with the firebird sgbd.",
     "authors": [
         {
             "name": "Philipe M. Lima",
