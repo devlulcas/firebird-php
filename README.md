@@ -2,7 +2,7 @@
 
 A library created to meet a work need when handling a Firebird database.
 
-You can clone this code to your project:
+You can clone this code:
 
 ```git
 	git clone https://github.com/Philipelima/Firebird-PHP.git
