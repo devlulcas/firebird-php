@@ -16,7 +16,6 @@ class FirebirdPHP
     protected static $databaseName;
     protected $connection;
 
-
     public function __construct()
     {
         $this->setConnection();
@@ -64,6 +63,14 @@ class FirebirdPHP
         return $this->connection;
     }
 
+    /**
+     * Get's version of the installed firebird
+     */
+    private static function getVersion()
+    {
+        $query = 'SELECT rdb$get_context(\'SYSTEM\', \'ENGINE_VERSION\') as version from rdb$database;';
+        return self::execute($query);
+    }
 
     /**
      * Execute a Sql Query
