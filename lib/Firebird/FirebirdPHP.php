@@ -13,7 +13,7 @@ class FirebirdPHP
     private static $host;
     private static $password;
     private static $user;
-    protected static $nameDb;
+    protected static $databaseName;
     protected $connection;
 
 
@@ -47,7 +47,7 @@ class FirebirdPHP
     private function setConnection(): void
     {
         try {
-            $config = self::$driver . ':dbname=' . self::$host . self::$nameDb . ';charset=utf8;dialect=3';
+            $config = self::$driver . ':dbname=' . self::$host . self::$databaseName . ';charset=utf8;dialect=3';
             $this->connection = new PDO($config, self::$user, self::$password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {

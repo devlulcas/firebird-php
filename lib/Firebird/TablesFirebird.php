@@ -21,7 +21,7 @@ class TablesFirebird extends FirebirdPHP
     {
         $query = 'SELECT RDB$RELATION_NAME FROM RDB$RELATIONS';
         $result = $this->execute($query)->fetchAll(PDO::FETCH_ASSOC);
-        Result::showInConsole($result, "ALL TABLES IN DATABASE " . self::$nameDb . ":");
+        Result::showInConsole($result, "ALL TABLES IN DATABASE " . self::$databaseName . ":");
     }
 
 
