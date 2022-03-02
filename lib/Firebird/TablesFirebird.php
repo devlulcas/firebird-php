@@ -16,7 +16,6 @@ class TablesFirebird extends FirebirdPHP
 
     /**
      * Show all Tables in the DATABASE 
-     * @return void
      */
     public function getTablesInDatabase(): void
     {
@@ -28,7 +27,6 @@ class TablesFirebird extends FirebirdPHP
 
     /**
      * Create a new table in the Database
-     * @return bool
      */
     public function createTable($table, $fields = []): bool
     {
@@ -40,8 +38,7 @@ class TablesFirebird extends FirebirdPHP
 
 
     /**
-     * turn array values into a single string.
-     * @param string 
+     * Turn array values into a single string.
      */
     private static function manipulateFieldsToCreateTable(string $value): string
     {
@@ -61,8 +58,7 @@ class TablesFirebird extends FirebirdPHP
 
 
     /**
-     * manipulate array values ​​and turn them into a single string.
-     * @param array
+     * Manipulate array values ​​and turn them into a single string.
      */
     private function getFields(array $fields): string
     {

@@ -3,7 +3,6 @@
 namespace FirebdPHP\Firebird;
 
 use FirebdPHP\Env\EnvFiles;
-use FirebdPHP\Result;
 use PDOException;
 use PDOStatement;
 use PDO;
@@ -25,8 +24,7 @@ class FirebirdPHP
 
 
     /**
-     * sets the path of the .fdb file
-     * @param string
+     * Sets the path of the .fdb file
      */
     private function setFdbPath(string $path): void
     {
@@ -36,7 +34,6 @@ class FirebirdPHP
 
     /**
      * Sets the credentials to connect to database
-     * @param string
      */
     public static function config(string $envPath): void
     {
@@ -46,7 +43,6 @@ class FirebirdPHP
 
     /** 
      * Sets the database connection.
-     * @return void
      */
     private function setConnection(): void
     {
@@ -62,9 +58,8 @@ class FirebirdPHP
 
     /**
      * Return the database connection.
-     * @return PDO
      */
-    private  function getConnection(): PDO
+    private function getConnection(): PDO
     {
         return $this->connection;
     }
@@ -72,7 +67,6 @@ class FirebirdPHP
 
     /**
      * Execute a Sql Query
-     * @param string
      */
     protected function execute(string $sqlQuery): ?PDOStatement
     {
@@ -88,8 +82,6 @@ class FirebirdPHP
 
     /**
      * Execute a Sql Query with params
-     * @param string
-     * @param array
      */
     private function executeQuery(string $query, array $params = []): ?PDOStatement
     {
@@ -109,9 +101,7 @@ class FirebirdPHP
 
 
     /**
-     * return a Create table query
-     * @param string 
-     * @param string
+     * Return a Create table query
      */
     protected static function getCreateTableSql(string $table, string $fields): string
     {
