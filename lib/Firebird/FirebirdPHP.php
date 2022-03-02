@@ -8,26 +8,21 @@ use PDOException;
 use PDOStatement;
 use PDO;
 
-Class FirebirdPHP
+class FirebirdPHP
 {
-
     private static $driver   =  "firebird";
-
     private static $host;
     private static $password;
     private static $user;
-    
     protected static $nameDb;
-
-
     protected $connection;
-
 
 
     public function __construct()
     {
         $this->setConnection();
     }
+
 
     /**
      * sets the path of the .fdb file
@@ -56,16 +51,11 @@ Class FirebirdPHP
     private function setConnection(): void
     {
         try {
-
-            $config = self::$driver.':dbname='.self::$host.self::$nameDb.';charset=utf8;dialect=3';
-
+            $config = self::$driver . ':dbname=' . self::$host . self::$nameDb . ';charset=utf8;dialect=3';
             $this->connection = new PDO($config, self::$user, self::$password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         } catch (PDOException $e) {
-
             die('ERROR: ' . $e->getMessage());
-
         }
     }
 
@@ -80,8 +70,6 @@ Class FirebirdPHP
     }
 
 
-   
-
     /**
      * Execute a Sql Query
      * @param string
@@ -89,15 +77,11 @@ Class FirebirdPHP
     protected function execute(string $sqlQuery): ?PDOStatement
     {
         try {
-
             $statement = $this->getConnection()->prepare($sqlQuery);
             $statement->execute();
             return $statement;
-
         } catch (PDOException $e) {
-
             die('ERROR: ' . $e->getCode());
-     
         }
     }
 
@@ -109,15 +93,11 @@ Class FirebirdPHP
      */
     private function executeQuery(string $query, array $params = []): ?PDOStatement
     {
-
         try {
-
             $statement = $this->connection->prepare($query);
             $statement->execute($params);
             return $statement;
-
         } catch (PDOException $e) {
-
             switch ($e->getCode()) {
                 case 23000:
                     throw new \Exception('Dados já existentes!');
@@ -138,6 +118,4 @@ Class FirebirdPHP
         $table = strtoupper($table);
         return "CREATE TABLE  ${table}(${fields})";
     }
-
-    
 }
