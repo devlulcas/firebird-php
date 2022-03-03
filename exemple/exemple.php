@@ -24,7 +24,6 @@ QueryRunner::run(
                 "type" => "int",
                 "increment",
                 "primary"
-
             ],
             "name" => [
                 "type" => "varchar",
