@@ -8,4 +8,9 @@ class StringUtils
     {
         return rtrim(ltrim($string));
     }
+
+    public static function removeExtraSpaces(string $string)
+    {
+        return preg_replace("/\s\s+/", " ", $string);
+    }
 }
