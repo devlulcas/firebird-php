@@ -35,10 +35,12 @@ class GenerateColumns
         $isPrimary = in_array("primary", $columnAttributes);
         $limit = $columnAttributes["limit"] ?? 0;
         $reference = $columnAttributes["reference"] ?? [];
+        $defaultValue = $columnAttributes["default"] ?? null;
 
         $column = new Column(
             name: $columnName,
             type: $columnAttributes["type"],
+            defaultValue: $defaultValue,
             limit: $limit,
             generated: $isGenerated,
             primary: $isPrimary,

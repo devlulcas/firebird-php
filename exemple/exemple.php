@@ -49,7 +49,16 @@ QueryRunner::run(
                     "field" => "acronym",
                     "onDelete" => "cascade"
                 ]
-            ]
+            ],
+            "createdAt" => [
+                "type" => "timestamp",
+                "default" => "now"
+            ],
+            "theme" => [
+                "type" => "varchar",
+                "limit" => 15,
+                "default" => "dark"
+            ],
         ]
     )
 );

@@ -13,6 +13,7 @@ class Column
     private ?int $limit = null;
     private bool $generated = false;
     private bool $unique = false;
+    private mixed $defaultValue;
 
     // For primary keys
     private bool $primary = false;
@@ -25,6 +26,7 @@ class Column
     public function __construct(
         string $name,
         string $type,
+        mixed $defaultValue,
         ?int $limit = null,
         bool $generated = false,
         bool $primary = false,
@@ -35,6 +37,7 @@ class Column
         $this->type = $type;
         $this->limit = $limit;
         $this->generated = $generated;
+        $this->defaultValue = $defaultValue;
         // We can use a question mark at the end of the type option to define if the field is nullable
         $this->nullable = $type[-1] === "?";
         $this->unique = $unique;
@@ -50,8 +53,9 @@ class Column
         [$type, $nullability] = $this->getTypeData();
         $primaryKeyData = $this->getPrimaryKeyData();
         $uniqueness = $this->getUniqueness();
+        $defaultValue = $this->getDefaultValue();
 
-        $column = "$this->name $type $nullability $primaryKeyData $uniqueness";
+        $column = "$this->name $type $defaultValue $nullability $primaryKeyData $uniqueness";
 
         // Remove blank spaces at the end
         $column = rtrim(ltrim($column));
@@ -86,12 +90,20 @@ class Column
      */
     private function getTypeAndNullability()
     {
-        // Primary keys can't be null by default
+        // if type?
+        if ($this->nullable) {
+            // Returns the type without the question mark when it's nullable and isn't a primary key or doesn't have a default
+            $cleanType = substr($this->type, 0, -1);
+            return [$cleanType, ""];
+        }
+
+        // if type
+        // Primary keys can't be null by default - IGNORE NULLABLE 
         if ($this->primary) return [$this->type, ""];
+        // A field with a default value doesn't need the "not null" string
+        if ($this->defaultValue) return [$this->type, ""];
+        // When we don't have the question mark:
         if (!$this->nullable) return [$this->type, "not null"];
-        // Returns the type without the question mark
-        $cleanType = substr($this->type, 0, -1);
-        return [$cleanType, ""];
     }
 
     /**
@@ -132,5 +144,21 @@ class Column
         $this->referencedTable = $reference["table"];
         $this->referencedField = $reference["field"];
         $this->onDelete = $reference["onDelete"];
+    }
+
+    private function getDefaultValue()
+    {
+        if (!$this->defaultValue) return "";
+        if ($this->defaultValue && $this->nullable) throw new Exception("Field $this->name cannot be nullable because it has a default value");
+        if ($this->defaultValue === "now") {
+            $this->defaultValue = "current_timestamp";
+        }
+
+        $default = match ($this->type) {
+            "varchar", "char" => "'$this->defaultValue'",
+            default => $this->defaultValue,
+        };
+
+        return "default $default";
     }
 }
