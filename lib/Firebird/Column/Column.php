@@ -58,7 +58,7 @@ class Column
         $column = "$this->name $type $defaultValue $nullability $primaryKeyData $uniqueness";
 
         // Remove blank spaces at the end
-        $column = rtrim(ltrim($column));
+        $column = StringUtils::removeInlineSpaces($column);
         return $column;
     }
 

@@ -3,6 +3,7 @@
 namespace FirebdPHP\Firebird\Table;
 
 use FirebdPHP\Firebird\Column\GenerateColumns;
+use FirebdPHP\Firebird\Utils\StringUtils;
 
 class Table
 {
@@ -12,6 +13,10 @@ class Table
     public static function create(string $name, array $columns)
     {
         $columns = GenerateColumns::createMultiple($columns);
-        return "CREATE TABLE  $name ($columns)";
+        $sqlString = "CREATE TABLE $name ($columns)";
+
+        $cleanSqlString = StringUtils::removeExtraSpaces($sqlString);
+
+        return $cleanSqlString;
     }
 }
