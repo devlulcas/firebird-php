@@ -3,7 +3,7 @@
 
 require __DIR__ . "/../vendor/autoload.php";
 
-use FirebdPHP\Firebird\QueryRunner;
+use FirebdPHP\Firebird\QueryRunner\QueryRunner;
 use FirebdPHP\Firebird\Table\Table;
 
 // Create new Table
@@ -47,6 +47,14 @@ QueryRunner::run(
                 "reference" => [
                     "table" => "states",
                     "field" => "acronym",
+                    "onDelete" => "cascade"
+                ]
+            ],
+            "university" => [
+                "type" => "varchar",
+                "limit" => 80,
+                "reference" => [
+                    "table" => "universities",
                     "onDelete" => "cascade"
                 ]
             ],
