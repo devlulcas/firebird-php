@@ -3,6 +3,7 @@
 namespace FirebdPHP\Firebird\Column;
 
 use Exception;
+use FirebdPHP\Firebird\Utils\Output;
 use FirebdPHP\Firebird\Utils\StringUtils;
 
 class Column
@@ -115,7 +116,10 @@ class Column
         if (in_array($type, $needLimits)) {
             $name = $this->name;
             $limit = $this->limit;
-            if (!$limit) throw new Exception("Cannot create field $name of type $type without limit value");
+            if (!$limit) {
+                Output::error();
+                throw new Exception("Cannot create field $name of type $type without limit value");
+            };
             return "$type($limit)";
         }
         return $type;
@@ -140,17 +144,26 @@ class Column
     private function setReference(array $reference)
     {
         if (!$reference) return [];
-        if (count($reference) > 3) throw new Exception("Cannot create foreign key. Not enough arguments. Inform table, field and on delete politics.");
+        if (!$reference["table"]) {
+            Output::error();
+            throw new Exception("Cannot create foreign key without specifying a table");
+        }
+        
         $this->referencedTable = $reference["table"];
         $this->referencedField = $reference["field"];
-        $this->onDelete = $reference["onDelete"];
+        $this->onDelete = $reference["onDelete"] ?? "sdf";
     }
 
     private function getDefaultValue()
     {
         if (!$this->defaultValue) return "";
-        if ($this->defaultValue && $this->nullable) throw new Exception("Field $this->name cannot be nullable because it has a default value");
+        if ($this->defaultValue && $this->nullable) {
+            Output::error();
+            throw new Exception("Field $this->name cannot be nullable because it has a default value");
+        }
+
         if ($this->defaultValue === "now") {
+            Output::warn("Default value 'now' means 'current_timestamp' in the firebird database");
             $this->defaultValue = "current_timestamp";
         }
 
