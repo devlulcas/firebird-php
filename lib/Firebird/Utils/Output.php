@@ -14,23 +14,27 @@ class Output
     /**
      * Warning message colored in yellow
      */
-    public static function warn()
+    public static function warn($message)
     {
         $labelColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Yellow];
-        $separatorColors = ["color" => TextColors::$LightYellow, "background" => BackgroundColors::$LightYellow];
-        self::center(self::bold(" WARNING "), $labelColors);
-        self::separator(options: $separatorColors);
+        $separatorColors = ["color" => TextColors::$LightYellow, "background" => BackgroundColors::$Clear];
+        $messageColors = ["color" => TextColors::$LightYellow, "background" => BackgroundColors::$Clear];
+        self::center(self::bold(" WARNING "), $labelColors, "-", $separatorColors);
+        self::output($message, $messageColors);
+        self::separator("-", $separatorColors);
     }
 
     /**
      * Danger message colored in red
      */
-    public static function danger()
+    public static function danger($message)
     {
         $labelColors = ["color" => TextColors::$Yellow, "background" => BackgroundColors::$Red];
         $separatorColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Red];
-        self::center(self::bold(" DANGER "), $labelColors);
-        self::separator(options: $separatorColors);
+        $messageColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Clear];
+        self::center(self::bold(" DANGER "), $labelColors, "-", $separatorColors);
+        self::output($message, $messageColors);
+        self::separator("-", $separatorColors);
     }
 
     /**
@@ -47,11 +51,13 @@ class Output
     /**
      * Success message colored in bright green
      */
-    public static function success()
+    public static function success($message)
     {
         $labelColors = ["color" => TextColors::$Green, "background" => BackgroundColors::$Clear];
         $separatorColors = ["color" => TextColors::$Green, "background" => BackgroundColors::$Black];
+        $messageColors = ["color" => TextColors::$Green, "background" => BackgroundColors::$Clear];
         self::center(self::bold(" SUCCESS "), $labelColors);
+        self::output($message, $messageColors);
         self::separator("-", $separatorColors);
     }
 
