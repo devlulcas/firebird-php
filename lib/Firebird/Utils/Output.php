@@ -14,48 +14,44 @@ class Output
     /**
      * Warning message colored in yellow
      */
-    public static function warn($message)
+    public static function warn()
     {
         $labelColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Yellow];
         $separatorColors = ["color" => TextColors::$LightYellow, "background" => BackgroundColors::$LightYellow];
         self::center(self::bold(" WARNING "), $labelColors);
-        self::output($message);
         self::separator(options: $separatorColors);
     }
 
     /**
      * Danger message colored in red
      */
-    public static function danger($message)
+    public static function danger()
     {
         $labelColors = ["color" => TextColors::$Yellow, "background" => BackgroundColors::$Red];
         $separatorColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Red];
         self::center(self::bold(" DANGER "), $labelColors);
-        self::output($message);
         self::separator(options: $separatorColors);
     }
 
     /**
      * Error message colored in bright red
      */
-    public static function error($message, mixed $code = "")
+    public static function error(mixed $code = "")
     {
         $separatorColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Clear];
         $labelColors = ["color" => TextColors::$Red, "background" => BackgroundColors::$Clear];
         self::center(self::bold(" ERROR $code "), $labelColors);
-        self::output($message);
         self::separator("-", $separatorColors);
     }
 
     /**
      * Success message colored in bright green
      */
-    public static function success($message)
+    public static function success()
     {
         $labelColors = ["color" => TextColors::$Green, "background" => BackgroundColors::$Clear];
         $separatorColors = ["color" => TextColors::$Green, "background" => BackgroundColors::$Black];
         self::center(self::bold(" SUCCESS "), $labelColors);
-        self::output($message);
         self::separator("-", $separatorColors);
     }
 
